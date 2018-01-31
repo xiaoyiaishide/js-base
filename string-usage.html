@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>string-usage</title>
+</head>
+<body>	
+	<p>有两种形式的字符串：基本类型，对象类型</p>
+	<p>对象类型的字符串封装了一些属性及方法，而基本类型没有</p>
+	<p>可以用基本类型的字符串调用字符串对象封装的属性及方法，无须手动转换</p>
+
+	<p>字符串中的length是只读属性，不可更改</p>
+
+	<h1>字符串方法</h1>
+
+	<p>
+		1.charAt(index)：获取对应下标处的字符
+						 var str = 'abc';
+						 str.charAt(1);//'b'
+						 str.charAt(100);//''
+
+		2.charCodeAt(index)：获取对应下标处的字符编码
+						 var str = 'abc';
+						 str.charCodeAt(1);//98
+						 str.charCodeAt(100);//NaN
+
+		3.String.fromCharCode(ASCII码)：获取ASCII码对应的字符
+						 String.fromCharCode(117);//u
+
+		4.toLowerCase(),toUpperCase()：字符串大小写转换，不会改变原来字符串
+						 var str = abc;
+						 str.toUpperCase();//'ABC'
+						 str;//abc
+
+		5.==,===判断相等：==只比较相等，不对类型进行比较(比较之前会先进行类型统一)
+						  ===要求值和类型都相等
+						  1 == '1'//true
+						  1 == true//true
+						  1 === '1'//false
+						  1 === true//false
+
+		6.localCompare()：字符串大小比较，比较规则是两个字符串从下标为0的字符开始比较，如果谁的ASCII码值大，那么				  谁大，如果相等继续比较后面的字符，当两个字符不相等时停止比较
+
+		7
+	</p>
+
+</body>
+</html>
