@@ -38,10 +38,64 @@
 						  1 === '1'//false
 						  1 === true//false
 
-		6.localCompare()：字符串大小比较，比较规则是两个字符串从下标为0的字符开始比较，如果谁的ASCII码值大，那么				  谁大，如果相等继续比较后面的字符，当两个字符不相等时停止比较
+		6.localCompare()：字符串大小比较，比较规则是两个字符串从下标为0的字符开始比较，如果谁的ASCII码值大，那么				  谁大，如果相等继续比较后面的字符，当两个字符不相等时停止比较。
+						  var str = 'abc';
+						  str.localCompare('acb');//-1前面字符串小于后面字符串
+						  str.localCompare('aaa');//-1前面字符串大于后面字符串
+						  str.localCompare('abc');//0前面字符串等于后面字符串
 
-		7
+		7.indexOf(searchValue, fromIndex)：从左到右查找第一次出现的字符串，返回第一次出现字符串得下标，如果没有出现返回-1
+						  var str = 'abba';
+						  str.indexOf('a');//0 
+
+		8.lastIndexOf(searchValue, fromIndex)：从右至左查找第一次出现的字符串，返回第一次出现字符串得下标，如果没有出现返回-1
+						  var str = 'abba';
+						  str.lastIndexOf('a');//3
+
+		9.replace(oldStr, newStr)：字符串替换，默认只替换第一次出现的oldStr，用过正则表达式可以实现全部替换
+						  var str = 'abba';
+						  str.replace('a', 'c');//'cbba'
+						  str.replace(/a/g, 'c');//'cbbc'
+
+		提取字串的方法（都不会改变原先字符串）				  
+		10.substring(start, stop)：substring()方法用于提取字符串中介于两个指定下标之间的字符。要头不要尾。
+								   start：必填，一个非负的整数，要提取的字串的第一个在原字符中的位置。
+								   stop：可选，一个非负的整数，要提取字符串的最后一个字符在原字符中的位置+1，如果省略会一直截取到原字符串的末尾。
+								   返回值包含字符串第start个字符，但不包括第stop个字符。
+								   如果传入的start和stop相等，那么该方法返回的就是一个空字符串（即长度为0的字符串）。
+								   如果传入start大于stop，该方法会在提取字符串之前交换这两个参数。
+
+		11.substr(start, length)：substr()方法用于提取从start下标开始的指定数目的字符。
+								  start：必填，要抽取的字串的起始下标。必须是数值。如果是负数，那么从该参数声明从字符串的尾部开始算起始位置。也就是说，-1指的是字符串最后一个字符，-2指的是倒数第二个，以此类推。
+								  length：可选。子串中的字符数。必须是数值。如果省略了该参数，那么返回从原字符串的开始位置到结尾的字串。
+								  返回值：一个新的字符串，从原字符的start（包括start所指的字符）处开始的length个字符。如果没有指定length，那么返回的字符串包含从start到原字符串的结尾的字符。
+
+		12.stringObject(separator,howmany)：split方法用于把字符串分割成字符串数组
+											separator：必需。字符串或正则表达式，从该参数指定的地方分割stringObject。
+											howmany：可选，该参数可指定返回的数组的最大长度。如果指定了这个参数，返回的字串不会多于这个参数的指定的数组。如果没用设置该参数，整个字符串都会被分割，不考虑他的长度。
+											如果使用空字符串""作为seperator，整个字符串的每个字符都会被分割。
+
+		13.concat()：用于将一个或多个字符串拼接起来
+					 var str = 'aa';
+					 str.concat('bb');//'aabb'
+
+		14.trim()：此方法会创建一个字符串的副本，删除前缀及后缀的所有空格，然后返回结果。
+				   var str  = " hello ";
+				   str.trim();//"hello"
+				   str;//" hello "
 	</p>
 
+	<h1>数学方法</h1>
+	<p>
+		1.四舍五入：Math.round(4.5)//5
+		2.向上取整：Math.ceil(4.5)//4
+		3.向下取整：Math.floor(4.5)//5
+		4.取最大值：Math.max(1,2,3,4,5,6,7)//7
+		5.取最小值：Math.min(1,2,3,4,5,6,7)//1
+		6.取绝对值：Math.abs(-10)//10
+		7.x的y次方：Math.pow(x, y)
+		8.开平方：Math.sqrt(25)//5
+		9.生成0-1之间的随机数：Math.random//5
+	</p>
 </body>
 </html>
