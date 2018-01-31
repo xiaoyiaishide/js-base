@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>编程实战</title>
+</head>
+<body>
+	<p>
+		UI层的松耦合：WEB UI分层，将JavaScript从css中从抽离（避免使用CSS表达式）。
+								  将css从JavaScript中抽离（可以通过在JavaScript中操作CSS的className来达到修改样式的目的）。
+								  将JavaScript从HTML中抽离。
+								  将HTML从JavaScript中抽离：服务端加载，简单的客户端模板，复杂的客户端模板。
+		
+		避免使用全局变量：全局变量带来的问题：命名冲突，代码的脆弱性，难以测试。
+						  意外的全局变量：避免省略使用var关键字，避免意外的全局变量，如果可以使用严格模式。
+						  单全局变量方式：命名空间，模块化。
+						  零全局变量。
+
+		事件处理：隔离应用逻辑。
+				  不要分发事件对象:
+				  <script type="text/javascript">
+				  	//好的例子
+				  	var MyApplication = {
+				  		handleClick: function(event){
+				  			event.preventDefault();
+				  			event.stopPropagation();
+
+				  			//传入应用逻辑
+				  			this.showPopup(event.clientX, event.clientY);
+				  		},
+				  		showPopup:function(x, y) {
+				  			var popup = document.geyElementById('popup');
+				  			popup.style.left = x + 'px';
+				  			popup.style.top = y + 'px';
+				  			popup.className = "reveal";
+				  		}
+				  	};
+
+				  	addListener(element, "click", function(event) {
+				  		MyApplication.handleClick(event);
+				  	})
+				  </script>
+		避免空比较：检测基本数据类型：typeof 'abc'//string
+									  typeof 123//number
+									  typeof true//boolean
+									  typeof undefined//undefined
+									  typeof null//object(一般不用于检测语句)
+					检测引用类型：instanceof：Date,Error,RegExp,自定义引用类型。
+											  检测引用类型的最好方法就是instanceof运算符。
+											  instanceof运算符不仅检测这个对象的构造器，还检测原型链。
+											  默认情况下，每个对象都继承自Object，因此每个对象的'value instanceof Object'都会返回true。
+											  因此使用'value instanceof Object'来判断对象是否属于某个特定类型的做法并非最佳。
+					检测函数：检测函数的最好办法typeof方法
+					检测数组：Array.isArray()
+					检测属性：判断属性是否存在的最好的方法是使用in运算符
+							  判断实例属性也可以用hasOwnProperty()
+		将配置数据从代码中抽离出来：配置数据：URI,需要展示给用户的字符串,重复的值,配置项,任何可能发生变更的值
+									抽离配置数据
+									保存配置数据
+
+	</p>	
+</body>
+</html>
