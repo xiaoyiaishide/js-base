@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	instanceof 检测一个对象是否为某个类创建的 contructor prototype _proto_
+
+	创建对象：
+	1.工厂模式
+	<script type="text/javascript">
+		function Person(name, age, sex) {
+			var o = {};
+			o.name = name;
+			o.age = age;
+			o.sex = sex;
+			o.sayName = function() {
+				console.log(this.name);
+			}
+			return o;
+		}
+
+		var a1 = Person('a1', 20, 'boy');
+		var a2 = Person('a2', 30, 'girl');
+	</script>
+
+	2.构造函数模式
+	<script type="text/javascript">
+		function Person(name, age, sex) {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+			this.sayName = function() {
+				console.log(this.name);
+			}
+		}
+
+		var a1 = new Person('a1', 20, 'boy');
+		var a2 = new Person('a2', 30, 'girl');
+		/*
+			使用 new 操作符执行构造函数的实例经历的步骤：
+			1.创建一个对象
+			2.将构造函数的作用域指向这个新对象
+			3.执行构造函数的代码（为对象添加属性）
+			4.返回这个对象
+		*/
+
+		/*
+		构造函数里面的sayName函数，不同的实例会产生不同的函数(a1.sayName===a2.sayName;//false)，相同的功能产生了不同的函数这样是很不合理的，因此可以将sayName拿到全局作用域；
+		*/
+		function Person(name, age, sex) {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+			this.sayName = sayName;
+		}
+
+		function sayName() {
+			console.log(this.name);
+		}
+		var a1 = new Person('a1', 20, 'boy');
+		var a2 = new Person('a2', 30, 'girl');
+		/*
+		但是这样将私有的方法放到全局作用域当中，封装性几乎不存在了
+		*/
+	</script>
+
+	3.原型模式
+	每个函数都有一个prototype属性，这个属性指向一个对象，这个对象可以让通过这个函数创建的实例对象共享原型对象中的属性和方法。
+	<script type="text/javascript">
+		function Person() {
+			// body...
+		}
+		Person.prototype.name = 'aaa';
+		Person.prototype.age = 15;
+		Person.prototype.sex = 'boy';
+		Person.prototype.sayName = function() {
+			console.log(this.name);
+		}
+		var p1 = new Person();
+		var p2 = new Person();
+		p1.name;//'aaa'
+		p2.name;//'aaa'
+		p1.sayName === p2.sayName;//true
+		/*
+		函数对象是一个空对象，所有属性都使用原型对象的方式供实例共享
+		*/
+
+		/*
+		每个函数在创建的时候都会产生一个指向原型对象的指针：prototype(这个指针也被称为_proto_)，所有原型对象都有一个constructor(构造)属性，这个属性指回该函数的指针。也就是Object.prototype.constructor = Object;
+		
+		对象的constructor指向的是他的构造函数，函数的constructor指向本身。
+
+		可以使用 isPrototypeOf()来判断两个对象之间是否存在原型对象这样的关系
+		getPrototypeOf()可以获取某个实例的原型对象
+		*/
+
+		/*
+		可以通过实例对象存储原型对象中的值，但是不能通过实例对象改变原型对象中的值，如果实例中的属性与原型中的属性重名则实例中的属性会覆盖原型对象中的属性。
+		可以使用delete操作符删除实例中的属性。
+		可以使用hasOwnProperty()方法来判断属性来自于实例还是原型。
+		如上面代码，如加上p1.name='p111';
+						  p1.hasOwnProperty(name);//true;来自于实例
+						  p2.hasOwnProperty(name);//false;来自于原型
+		*/
+
+		/*
+		in操作符：判断属性是否存在于对象中，无论在实例还是原型找到属性都会返回true。
+		因此结合 in操作符 和 hasOwnProperty操作符就能判断属性是在实例对象里还是在原型对象里。
+		return !p1.hasOwnProperty(name) && name in p1; //true:name是原型中的属性
+		*/
+
+		/*
+		Oject.keys(Person.prototype);//可以返回Person原型对象上可以枚举的属性数组
+		手动创建的对象，赋值的属性都是可枚举的属性，继承与Object的属性值都是不可枚举的
+		*/
+
+		/*
+		原型对象的问题:当出现引用类型时，多个实例共用一个引用类型的属性，会出现很大问题，一个实例修改了这个引用类型的属性，所有的实例该属性都会修改。
+		*/
+		function Person() {
+			// body...
+		}
+		Person.prototype.name = 'aaa';
+		Person.prototype.age = 15;
+		Person.prototype.sex = 'boy';
+		Person.prototype.arr = [1,2,3];
+		Person.prototype.sayName = function() {
+			console.log(this.name);
+		}
+		var p1 = new Person();
+		var p2 = new Person();
+
+		p1.arr === p2.arr;//true;
+		p1.arr.push(1);
+	</script>
+
+	4.组合使用构造器函数模式和原型模式
+	也就是将实例属性使用构造器模式设置，原型模式用来定义方法和共享的属性。是定义引用类型的默认模式。
+	<script type="text/javascript">
+		function Person() {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		Person.prototype = {
+			constructor :Person,
+			sayName: function(){
+				console.log(this.name);
+			}
+		}
+
+	/*
+	如果将一个对象赋值给一个构造函数的原型这种使用方法时。如果在定义原型对象之前实例化对象，会将原型对象与实例对象之间的联系完全切断。
+	*/
+	</script>
+
+	5.动态原型模式
+	<script type="text/javascript">
+		function Person(){
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+			//在sayName不存在的情况下，会为Person的原型添加sayName方法
+			if(typeof sayName != "function"){
+				Person.prototype.sayName = function(){
+					console.log(this.name);
+				}
+			}
+		}
+	</script>
+
+	6.寄生构造函数模式(类似工厂模式)
+	<script type="text/javascript">
+		function Person(name, age, sex) {
+			var o = {};
+			o.name = name;
+			o.age = age;
+			o.sex = sex;
+			o.sayName = function() {
+				console.log(this.name);
+			}
+			return o;
+		}
+
+		var a1 = new Person('a1', 20, 'boy');
+		var a2 = new Person('a2', 30, 'girl');
+	</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div {
+			height: 200px;
+			width: 200px;
+		}
+
+		.aa{
+			position: relative;
+			background-color: yellow;
+			left: 100px
+		}
+
+		.bb{
+			background-color: green
+		}
+	</style>
+</head>
+<body>
+	<div class="aa" id="aa"></div>
+	<div class="bb" id="bb"></div>
+	1.box-sizing:border-box(设置宽高包含边框和内外边距)；content-box(设置宽高只是盒子content的内容)
+	2.position: static(默认，没有定位)
+				relative(相对布局,接收left,right,top,bottom,z-index，相对于元素在文档流原先的位置移动)
+				absolute(绝对布局,脱离文档流,接收left,right,top,bottom,z-index,相对于最近一个祖先元素得位置移动)
+				fixed(固定布局,相对于浏览器窗口进行定位)
+	3.函数节流和防抖：节流就是一段时间一个方法只运行一次如眨眼睛，防抖是在频繁触发的情况下，只有足够的时间，才执行代码一次。
+	<script type="text/javascript">
+	//节流:三秒以内方法只会执行一次
+	var flag = true;
+	document.getElementById('aa').addEventListener('click',function(argument) {
+		// body...
+		if(!flag){
+			return;
+		}
+
+		flag = false;
+
+		setTimeout(function(argument) {
+			console.log('点我了！');
+			flag = true;
+		},3000)
+	})
+	</script>
+
+	<script type="text/javascript">
+	//防抖：就是浏览器事件队列如果有空闲就会执行
+	document.getElementById('bb').addEventListener('click', function(argument) {
+		clearTimeout(timer);
+		var timer = setTimeout(function function_name(argument) {
+			console.log('bbb点我了！');
+		},3000)
+	})
+	</script>
+
+	4.css前缀：-moz-,-o-,-webkit-,-ms-
+	5.css选择器优先级：1.!important  2.行内样式  3.id选择器  4.类选择器  5.标签选择器  6.通配符选择器
+	6.promise：Promise.prototype.then：为promise实例添加状态改变的回调函数。
+			   Promise.prototype.catch：用于发生错误时候的回调函数。
+			   Promise.prototype.finally：不管最后Promise最后状态如何都会执行。
+			   Promise.all：将多个Promise对象包装成一个新的Promise实例。
+			   Promise.race：将多个Promise对象包装成一个新的Promise实例。
+			   Promise.resolve：将普通对象转为Promise对象。
+			   Promise.reject：返回一个新的Promise,状态为reject。
+
+
+</body>
+</html>

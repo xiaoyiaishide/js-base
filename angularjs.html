@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>angularjs</title>
+</head>
+<body>
+	<script type="text/javascript">
+		指令:
+		var directive = {
+			restrict: 'EA',//指令的应用方式:E(元素)，A(属性)，C（类名），M（注释）这几个字母的任意组合，常用的是E,A,EA
+			scope: {
+				configure: '=',
+			},
+			//指令作用域：false：使用父级作用域；true：独立的作用域；哈希对象（‘=’双项绑定属性，‘@’单项绑定属性）
+			templateUrl: 'aa.html',
+			constroller:function(argument) {
+				// body...
+			}
+		}
+	</script>
+	服务：Constant,Value,Service,Factory,Provider;除了Constance所有的服务本质都是Provider,都是Provider的语法糖
+</body>
+</html>
